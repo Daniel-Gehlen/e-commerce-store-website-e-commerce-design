@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CommerceStore | Design de E-commerce</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      body {
+        background: #f5f5f5;
+        padding: 20px;
+      }
+
+      /* Container principal */
+      .site-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* ASCII Art do design */
+      .ascii-art {
+        background: #1a1a2e;
+        color: #4ecdc4;
+        font-family: "Courier New", monospace;
+        padding: 15px;
+        border-bottom: 3px solid #ff6b6b;
+        overflow-x: auto;
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      .ascii-art pre {
+        margin: 0;
+      }
+
+      /* Header com logo, busca, carrinho e login */
+      .header {
+        background: white;
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        border-bottom: 2px solid #eef2f6;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+        min-width: 150px;
+      }
+
+      .search-box {
+        flex: 2;
+        max-width: 500px;
+        display: flex;
+        position: relative;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 14px 20px;
+        border: 2px solid #eef2f6;
+        border-radius: 50px;
+        font-size: 15px;
+        transition: 0.3s;
+        background: #f8fafc;
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: #ff6b6b;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+      }
+
+      .search-box button {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 9px 25px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .search-box button:hover {
+        background: #ff5252;
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      .cart {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 8px 15px;
+        border-radius: 50px;
+        background: #f8fafc;
+        transition: 0.3s;
+        position: relative;
+      }
+
+      .cart:hover {
+        background: #ff6b6b;
+        color: white;
+      }
+
+      .cart-icon {
+        font-size: 24px;
+      }
+
+      .cart-count {
+        background: #ff6b6b;
+        color: white;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .login {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        padding: 8px 15px;
+        border-radius: 50px;
+        background: #f8fafc;
+        transition: 0.3s;
+      }
+
+      .login:hover {
+        background: #4ecdc4;
+        color: white;
+      }
+
+      /* Categorias */
+      .categories {
+        background: white;
+        padding: 15px 30px;
+        border-bottom: 2px solid #eef2f6;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        align-items: center;
+        font-weight: 600;
+      }
+
+      .categories span {
+        color: #ff6b6b;
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+
+      .category-link {
+        color: #334155;
+        text-decoration: none;
+        padding: 5px 0;
+        border-bottom: 2px solid transparent;
+        transition: 0.3s;
+        font-size: 15px;
+      }
+
+      .category-link:hover {
+        color: #ff6b6b;
+        border-bottom-color: #ff6b6b;
+      }
+
+      /* Banner Promocional */
+      .banner {
+        margin: 30px;
+        background: linear-gradient(135deg, #4ecdc4 0%, #ff6b6b 100%);
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+      }
+
+      .banner h2 {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .banner-tags {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .banner-tag {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Seção de produtos */
+      .section-title {
+        padding: 0 30px;
+        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-title span {
+        background: #ff6b6b;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+      }
+
+      .products-grid {
+        padding: 0 30px 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: 0.3s;
+        border: 1px solid #eef2f6;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(255, 107, 107, 0.15);
+        border-color: #ff6b6b;
+      }
+
+      .product-image {
+        height: 180px;
+        background: linear-gradient(135deg, #f8fafc 0%, #eef2f6 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        position: relative;
+      }
+
+      .product-tag {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ff6b6b;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .product-info {
+        padding: 15px;
+      }
+
+      .product-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 5px;
+      }
+
+      .product-price {
+        font-size: 22px;
+        font-weight: 800;
+        color: #ff6b6b;
+        margin-bottom: 5px;
+      }
+
+      .product-price small {
+        font-size: 14px;
+        font-weight: 400;
+        color: #94a3b8;
+        text-decoration: line-through;
+        margin-left: 8px;
+      }
+
+      .product-installment {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 10px;
+      }
+
+      .product-rating {
+        color: #fbbf24;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .add-to-cart {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        width: 100%;
+      }
+
+      .add-to-cart:hover {
+        background: #ff5252;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        margin: 30px;
+        padding: 40px;
+        background: #1e293b;
+        border-radius: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        color: white;
+      }
+
+      .newsletter h3 {
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .newsletter p {
+        color: #94a3b8;
+        margin-top: 5px;
+      }
+
+      .newsletter-form {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        background: #334155;
+        color: white;
+      }
+
+      .newsletter-form input::placeholder {
+        color: #94a3b8;
+      }
+
+      .newsletter-form button {
+        padding: 15px 30px;
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        white-space: nowrap;
+      }
+
+      .newsletter-form button:hover {
+        background: #ff5252;
+        transform: scale(1.05);
+      }
+
+      /* Rodapé simples */
+      .footer {
+        background: #0f172a;
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-top: 3px solid #ff6b6b;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: #94a3b8;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #ff6b6b;
+      }
+
+      .payment-icons {
+        font-size: 30px;
+        margin: 20px 0;
+        color: #64748b;
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .search-box {
+          max-width: 100%;
+        }
+
+        .user-actions {
+          justify-content: center;
+        }
+
+        .banner h2 {
+          font-size: 28px;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        }
+
+        .newsletter {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-container">
+      <!-- ASCII Art do design Commerce -->
+      <div class="ascii-art">
+        <pre>
++--------------------------------------------------------------------+
+| LOGO | BUSCA PRODUTOS... | CARRINHO | LOGIN                        |
++--------------------------------------------------------------------+
+| CATEGORIAS: Eletrônicos | Moda | Casa | ...                        |
++--------------------------------------------------------------------+
+|  BANNER PROMOCIONAL - GRANDE DESTAQUE                              |
+|     [FRETE GRÁTIS] [OFERTAS]                                       |
++--------------------------------------------------------------------+
+|                                                                    |
+|  OFERTAS DO DIA:                                                   |
+|  +-------+  +-------+  +-------+  +-------+                        |
+|  | PROD  |  | PROD  |  | PROD  |  | PROD  |                        |
+|  | 1     |  | 2     |  | 3     |  | 4     |                        |
+|  | R$99  |  | R$149 |  | R$79  |  | R$199 |                        |
+|  +-------+  +-------+  +-------+  +-------+                        |
+|                                                                    |
+|  RECOMENDADOS PARA VOCÊ:                                           |
+|  +-------+  +-------+  +-------+                                   |
+|  | PROD  |  | PROD  |  | PROD  |                                   |
+|  | 5     |  | 6     |  | 7     |                                   |
+|  +-------+  +-------+  +-------+                                   |
+|                                                                    |
++--------------------------------------------------------------------+
+|  NEWSLETTER: [EMAIL] [ASSINAR]                                     |
++--------------------------------------------------------------------+
+            </pre
+        >
+      </div>
+
+      <!-- HEADER: Logo, Busca, Carrinho, Login -->
+      <header class="header">
+        <div class="logo">🛒 CommerceStore</div>
+        <div class="search-box">
+          <input type="text" placeholder="Buscar produtos..." />
+          <button type="button" onclick="alert('Buscando produtos...')">
+            Buscar
+          </button>
+        </div>
+        <div class="user-actions">
+          <div class="cart" onclick="alert('Carrinho de compras - 3 itens')">
+            <span class="cart-icon">🛒</span>
+            <span>Carrinho</span>
+            <span class="cart-count">3</span>
+          </div>
+          <div class="login" onclick="alert('Página de login / cadastro')">
+            <span>👤</span>
+            <span>Entrar</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CATEGORIAS -->
+      <div class="categories">
+        <span>CATEGORIAS:</span>
+        <a
+          href="#"
+          class="category-link"
+          onclick="
+            alert('Eletrônicos');
+            return false;
+          "
+          >📱 Eletrônicos</a
+        >
+        <a
+          href="#"
+          class="category-link"
+          onclick="
+            alert('Moda');
+            return false;
+          "
+          >👕 Moda</a
+        >
+        <a
+          href="#"
+          class="category-link"
+          onclick="
+            alert('Casa');
+            return false;
+          "
+          >🏠 Casa</a
+        >
+        <a
+          href="#"
+          class="category-link"
+          onclick="
+            alert('Esportes');
+            return false;
+          "
+          >⚽ Esportes</a
+        >
+        <a
+          href="#"
+          class="category-link"
+          onclick="
+            alert('Livros');
+            return false;
+          "
+          >📚 Livros</a
+        >
+        <a
+          href="#"
+          class="category-link"
+          onclick="
+            alert('Games');
+            return false;
+          "
+          >🎮 Games</a
+        >
+      </div>
+
+      <!-- BANNER PROMOCIONAL -->
+      <div class="banner">
+        <h2>SUPER OFERTAS DA SEMANA</h2>
+        <div class="banner-tags">
+          <span class="banner-tag">🚚 FRETE GRÁTIS</span>
+          <span class="banner-tag">🔥 OFERTAS IMPERDÍVEIS</span>
+          <span class="banner-tag">💰 ATÉ 50% OFF</span>
+        </div>
+      </div>
+
+      <!-- OFERTAS DO DIA -->
+      <div class="section-title">🔥 OFERTAS DO DIA <span>4 produtos</span></div>
+      <div class="products-grid">
+        <!-- Produto 1 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>📱</span>
+            <span class="product-tag">-30%</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Smartphone Galaxy A15</div>
+            <div class="product-price">R$ 99 <small>R$ 149</small></div>
+            <div class="product-installment">ou 12x de R$ 9,90</div>
+            <div class="product-rating">★★★★☆ (127)</div>
+            <button
+              class="add-to-cart"
+              onclick="
+                alert('Produto adicionado ao carrinho: Smartphone Galaxy A15')
+              "
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Produto 2 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>👕</span>
+            <span class="product-tag">-20%</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Camisa Social Slim</div>
+            <div class="product-price">R$ 149 <small>R$ 189</small></div>
+            <div class="product-installment">ou 6x de R$ 24,83</div>
+            <div class="product-rating">★★★★★ (89)</div>
+            <button
+              class="add-to-cart"
+              onclick="
+                alert('Produto adicionado ao carrinho: Camisa Social Slim')
+              "
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Produto 3 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>🎧</span>
+            <span class="product-tag">-40%</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Fone Bluetooth</div>
+            <div class="product-price">R$ 79 <small>R$ 129</small></div>
+            <div class="product-installment">ou 5x de R$ 15,80</div>
+            <div class="product-rating">★★★☆☆ (42)</div>
+            <button
+              class="add-to-cart"
+              onclick="alert('Produto adicionado ao carrinho: Fone Bluetooth')"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Produto 4 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>⌚</span>
+            <span class="product-tag">-15%</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Smartwatch Sport</div>
+            <div class="product-price">R$ 199 <small>R$ 249</small></div>
+            <div class="product-installment">ou 10x de R$ 19,90</div>
+            <div class="product-rating">★★★★☆ (210)</div>
+            <button
+              class="add-to-cart"
+              onclick="
+                alert('Produto adicionado ao carrinho: Smartwatch Sport')
+              "
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECOMENDADOS PARA VOCÊ -->
+      <div class="section-title">
+        🎯 RECOMENDADOS PARA VOCÊ <span>3 produtos</span>
+      </div>
+      <div
+        class="products-grid"
+        style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))"
+      >
+        <!-- Produto 5 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>💻</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Notebook Ultra i5</div>
+            <div class="product-price">R$ 2.499</div>
+            <div class="product-installment">ou 12x de R$ 208,25</div>
+            <div class="product-rating">★★★★★ (341)</div>
+            <button
+              class="add-to-cart"
+              onclick="
+                alert('Produto adicionado ao carrinho: Notebook Ultra i5')
+              "
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Produto 6 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>📷</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Câmera DSLR</div>
+            <div class="product-price">R$ 1.899</div>
+            <div class="product-installment">ou 10x de R$ 189,90</div>
+            <div class="product-rating">★★★★☆ (156)</div>
+            <button
+              class="add-to-cart"
+              onclick="alert('Produto adicionado ao carrinho: Câmera DSLR')"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Produto 7 -->
+        <div class="product-card" onclick="event.stopPropagation()">
+          <div class="product-image">
+            <span>🎮</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">Console Game</div>
+            <div class="product-price">R$ 2.999</div>
+            <div class="product-installment">ou 12x de R$ 249,90</div>
+            <div class="product-rating">★★★★★ (528)</div>
+            <button
+              class="add-to-cart"
+              onclick="alert('Produto adicionado ao carrinho: Console Game')"
+            >
+              Adicionar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="newsletter">
+        <div>
+          <h3>📧 NEWSLETTER</h3>
+          <p>Receba ofertas exclusivas e novidades</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Seu melhor e-mail" />
+          <button
+            type="button"
+            onclick="alert('Inscrição realizada com sucesso! (demonstração)')"
+          >
+            ASSINAR
+          </button>
+        </div>
+      </div>
+
+      <!-- RODAPÉ -->
+      <footer class="footer">
+        <div class="footer-links">
+          <a
+            href="#"
+            onclick="
+              alert('Sobre nós');
+              return false;
+            "
+            >Sobre nós</a
+          >
+          <a
+            href="#"
+            onclick="
+              alert('Política de privacidade');
+              return false;
+            "
+            >Privacidade</a
+          >
+          <a
+            href="#"
+            onclick="
+              alert('Trocas e devoluções');
+              return false;
+            "
+            >Trocas</a
+          >
+          <a
+            href="#"
+            onclick="
+              alert('Atendimento');
+              return false;
+            "
+            >Atendimento</a
+          >
+          <a
+            href="#"
+            onclick="
+              alert('Trabalhe conosco');
+              return false;
+            "
+            >Trabalhe conosco</a
+          >
+        </div>
+        <div class="payment-icons">💳 💵 📦 🚚</div>
+        <div>📧 contato@commercestore.com | 📱 (11) 99999-1111</div>
+        <div style="margin-top: 15px; font-size: 13px; color: #64748b">
+          © 2026 CommerceStore - Todos os direitos reservados
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
