@@ -1,13 +1,3 @@
-## **PROJETO 6: DESIGN DE COMMERCE**
-
-### 📄 About (English)
-**E-Commerce Conversion-Focused Website** - A fully functional online store prototype built with HTML5 and CSS3. Features persistent shopping cart with item counter, category navigation, promotional banner, product grids with discounts, pricing installments, star ratings, and newsletter signup. Implements CSS Grid for product layout, hover animations, and conversion-optimized CTAs. Perfect for e-commerce and marketplaces.
-
----
-
-### 📚 README.md
-
-```markdown
 # 🛒 CommerceStore - Design de E-commerce
 
 ![Versão](https://img.shields.io/badge/versão-1.0.0-blue)
